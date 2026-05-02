@@ -20,7 +20,7 @@ export default function Confirm() {
   return (
     <SafeAreaView className="flex-1 bg-bg" edges={["top"]}>
       <ScreenHeader title="Agendar" onBack={() => router.back()} />
-      <Stepper current={3} labels={["Barbeiro", "Data/Hora", "Confirmar"]} />
+      <Stepper current={3} labels={["Barbeiro/Serviço", "Data/Hora", "Confirmar"]} />
 
       <ScrollView contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 160, gap: 14 }}>
         <View className="bg-bg-card rounded-2xl p-5 border border-line mt-3">
