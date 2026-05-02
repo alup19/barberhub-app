@@ -25,7 +25,7 @@ export default function Step1() {
               activeOpacity={0.85}
               onPress={() => {
                 setBarber(b);
-                router.push("/booking/step2");
+                router.push("/reserva/passo2");
               }}
               className={`bg-bg-card rounded-2xl p-4 flex-row items-center border ${disabled ? "border-line opacity-60" : "border-line"}`}
             >

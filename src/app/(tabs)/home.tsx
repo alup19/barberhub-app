@@ -93,7 +93,7 @@ export default function Home() {
               <Text className="text-[#110F0E]/70 text-xs font-bold tracking-widest">OFERTA ESPECIAL</Text>
               <Text className="font-serif text-[#110F0E] text-3xl mt-2">20% OFF</Text>
               <Text className="text-[#110F0E]/80 text-sm mt-1">No primeiro agendamento</Text>
-              <Pressable onPress={() => router.push("/booking/step1")} className="bg-[#110F0E] self-start mt-4 rounded-xl px-4 py-2.5">
+              <Pressable onPress={() => router.push("/reserva/passo1")} className="bg-[#110F0E] self-start mt-4 rounded-xl px-4 py-2.5">
                 <Text className="text-[#CC8F33] font-semibold text-sm">Agendar agora</Text>
               </Pressable>
             </LinearGradient>

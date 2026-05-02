@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { BottomNavigator } from "../../components/BottomNavigator";
@@ -49,7 +50,7 @@ export default function Profile() {
             </TouchableOpacity>
           ))}
 
-          <TouchableOpacity className="bg-bg-card rounded-2xl px-4 py-4 flex-row items-center border border-gold/40 mt-2">
+          <TouchableOpacity className="bg-bg-card rounded-2xl px-4 py-4 flex-row items-center border border-gold/40 mt-2" onPress={() => router.push('/admin')}>
             <View className="w-9 h-9 rounded-lg bg-gold/15 items-center justify-center">
               <Ionicons name="shield-checkmark-outline" size={18} color="#d4a24c" />
             </View>
@@ -65,7 +66,7 @@ export default function Profile() {
           </TouchableOpacity>
         </View>
       </ScrollView>
-      <BottomNavigator active="profile" />
+      <BottomNavigator active="perfil" />
     </SafeAreaView>
   );
 }

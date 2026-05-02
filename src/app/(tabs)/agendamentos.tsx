@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Alert, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { BottomNavigator } from "../../components/BottomNavigator";
-import { Appointment, appointments as initial } from "../../constants/data";
+import { Appointment, userAppointments as initial } from "../../constants/data";
 
 const tabs = ["Próximos", "Concluídos", "Cancelados"] as const;
 type Tab = typeof tabs[number];
@@ -94,7 +94,7 @@ export default function Appointments() {
           );
         })}
       </ScrollView>
-      <BottomNavigator active="appointments" />
+      <BottomNavigator active="agendamentos" />
     </SafeAreaView>
   );
 }

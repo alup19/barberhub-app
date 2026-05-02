@@ -63,7 +63,7 @@ export default function Services() {
           </View>
         ))}
       </ScrollView>
-      <BottomNavigator active="services" />
+      <BottomNavigator active="servicos" />
     </SafeAreaView>
   );
 }

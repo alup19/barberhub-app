@@ -1,13 +1,15 @@
-import { Pressable, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { Pressable, Text, View } from "react-native";
 
 type Props = {
-  label: string;
+  label?: string;
+  title?: string;
   onPress?: () => void;
   className?: string;
 };
 
-export function GoldButton({ label, onPress, className }: Props) {
+export function GoldButton({ label, title, onPress, className }: Props) {
+  const buttonText = label || title || "";
   return (
     <Pressable onPress={onPress} className={className}>
       <View
@@ -32,7 +34,7 @@ export function GoldButton({ label, onPress, className }: Props) {
           }}
         >
           <Text className="text-[#0a0805] text-lg font-bold tracking-wide">
-            {label}
+            {buttonText}
           </Text>
         </LinearGradient>
       </View>

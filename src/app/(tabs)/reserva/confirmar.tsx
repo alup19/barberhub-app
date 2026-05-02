@@ -84,7 +84,7 @@ export default function Confirm() {
       </ScrollView>
 
       <View className="absolute bottom-0 left-0 right-0 bg-bg border-t border-line p-5">
-        <PrimaryButton label="✓ Confirmar Agendamento" onPress={() => router.replace("/booking/success")} />
+        <PrimaryButton label="✓ Confirmar Agendamento" onPress={() => router.replace("/reserva/sucesso")} />
       </View>
     </SafeAreaView>
   );

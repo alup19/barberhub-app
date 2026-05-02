@@ -86,7 +86,7 @@ export default function Step2() {
               <Text className="text-gold font-bold">R$ {service.price}</Text>
             </View>
           </View>
-          <PrimaryButton label="Continuar para data e horário" icon="arrow-forward" onPress={() => router.push("/booking/step3")} />
+          <PrimaryButton label="Continuar para data e horário" icon="arrow-forward" onPress={() => router.push("/reserva/passo3")} />
         </View>
       )}
     </SafeAreaView>

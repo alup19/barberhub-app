@@ -4,7 +4,7 @@ import { View } from "react-native";
 
 export default function Agendar() {
   useEffect(() => {
-    router.replace("/booking/step1");
+    router.replace("/reserva/passo1");
   }, []);
   return <View className="flex-1 bg-bg" />;
 }

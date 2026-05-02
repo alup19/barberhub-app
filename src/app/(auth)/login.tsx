@@ -86,7 +86,7 @@ export default function Login() {
         <View className="flex-1" />
 
         <View className="items-center pt-10 pb-14">
-          <Pressable onPress={() => router.push("/register")}>
+          <Pressable onPress={() => router.push("/registrar")}>
             <Text className="text-text-muted text-[#988C81] text-sm">
               Não tem conta? <Text className="text-[#CC8F33] font-semibold">Criar conta</Text>
             </Text>

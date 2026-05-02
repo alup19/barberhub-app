@@ -3,9 +3,9 @@ import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import { Pressable, Text, View } from "react-native";
 
-type TabKey = "home" | "services" | "appointments" | "profile";
+type TabKey = "home" | "servicos" | "agendamentos" | "perfil";
 
-type TabRoute = "/home" | "/services" | "/appointments" | "/profile";
+type TabRoute = "/home" | "/servicos" | "/agendamentos" | "/perfil";
 
 type TabItem = {
     key: TabKey;
@@ -16,9 +16,9 @@ type TabItem = {
 
 const tabs: TabItem[] = [
     { key: "home", label: "Início", icon: "home-outline", route: "/home" },
-    { key: "services", label: "Serviços", icon: "grid-outline", route: "/services" },
-    { key: "appointments", label: "Agenda", icon: "calendar-outline", route: "/appointments" },
-    { key: "profile", label: "Perfil", icon: "person-outline", route: "/profile" },
+    { key: "servicos", label: "Serviços", icon: "grid-outline", route: "/servicos" },
+    { key: "agendamentos", label: "Agenda", icon: "calendar-outline", route: "/agendamentos" },
+    { key: "perfil", label: "Perfil", icon: "person-outline", route: "/perfil" },
 ];
 
 const activeColor = "#CC8F33";
@@ -29,7 +29,7 @@ function renderTab(tab: TabItem, isActive: boolean) {
     return (
         <Pressable
             key={tab.key}
-            onPress={() => router.push(tab.route)}
+            onPress={() => !isActive && router.push(tab.route)}
             className="items-center py-2 flex-1"
         >
             <Ionicons name={tab.icon as any} size={22} color={isActive ? activeColor : inactiveColor} />
@@ -50,7 +50,7 @@ export function BottomNavigator({ active }: { active: TabKey }) {
 
             <View className="flex-1 items-center -mt-6">
                 <Pressable
-                    onPress={() => router.push("/booking/step1")}
+                    onPress={() => router.push("/reserva/passo1")}
                     style={{
                         shadowColor: "#e2b558",
                         shadowOpacity: 0.5,

@@ -55,7 +55,7 @@ export default function Success() {
             label="Ver agendamentos"
             onPress={() => {
               reset();
-              router.replace("/appointments");
+              router.replace("/agendamentos");
             }}
           />
           <PrimaryButton

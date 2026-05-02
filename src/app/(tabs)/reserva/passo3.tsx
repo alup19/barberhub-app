@@ -128,7 +128,7 @@ export default function Step3() {
           onPress={() => {
             setDate(`${selectedDay} de ${monthNames[month]}`);
             setTime(selectedTime!);
-            router.push("/booking/confirm");
+            router.push("/reserva/confirmar");
           }}
         />
       </View>
