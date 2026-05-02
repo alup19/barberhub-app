@@ -3,7 +3,7 @@ import { router } from "expo-router";
 import { useState } from "react";
 import { Image, Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { GoldButton } from "../components/GoldButton";
+import { GoldButton } from "../../components/GoldButton";
 
 export default function Register() {
   const [showPwd, setShowPwd] = useState(false);
@@ -18,7 +18,7 @@ export default function Register() {
 
           <View className="flex-row items-center gap-3 mt-4">
             <Image
-              source={require("../../assets/images/tesoura.png")}
+              source={require("../../../assets/images/tesoura.png")}
               style={{
                 width: 42,
                 height: 42,

@@ -2,10 +2,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useBooking } from "../../components/BookingContext";
-import PrimaryButton from "../../components/PrimaryButton";
-import ScreenHeader from "../../components/ScreenHeader";
-import Stepper from "../../components/Stepper";
+import { useBooking } from "../../../components/BookingContext";
+import PrimaryButton from "../../../components/PrimaryButton";
+import ScreenHeader from "../../../components/ScreenHeader";
+import Stepper from "../../../components/Stepper";
 
 export default function Confirm() {
   const { barber, service, date, time } = useBooking();

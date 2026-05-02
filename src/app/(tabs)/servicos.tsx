@@ -2,8 +2,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { BottomNavigator } from "../components/BottomNavigator";
-import { services } from "../constants/data";
+import { BottomNavigator } from "../../components/BottomNavigator";
+import { services } from "../../constants/data";
 
 const categories = ["Todos", "Cabelo", "Barba", "Tratamento"] as const;
 type Cat = typeof categories[number];

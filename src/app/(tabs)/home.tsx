@@ -3,12 +3,29 @@ import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { BarberRow } from "../components/BarberRow";
-import { BottomNavigator } from "../components/BottomNavigator";
-import { ServiceCard } from "../components/ServiceCard";
-import { services as allServices, barbers } from "../constants/data";
+import { BarberRow } from "../../components/BarberRow";
+import { BottomNavigator } from "../../components/BottomNavigator";
+import { ServiceCard } from "../../components/ServiceCard";
+import { services as allServices, barbers } from "../../constants/data";
 
-const services = allServices.slice(0, 4).map((item) => ({
+const GRADIENT_COLORS = ["#CC8F33", "#c79a3e", "#e2b558"] as const;
+
+type ServiceItem = {
+  icon: keyof typeof Ionicons.glyphMap;
+  title: string;
+  price: string;
+  duration: string;
+  popular?: boolean;
+};
+
+type BarberProfile = {
+  initial: string;
+  name: string;
+  role: string;
+  rating: string;
+};
+
+const services: ServiceItem[] = allServices.slice(0, 4).map((item) => ({
   icon: `${item.icon}-outline` as const,
   title: item.name,
   price: String(item.price),
@@ -16,42 +33,42 @@ const services = allServices.slice(0, 4).map((item) => ({
   popular: !!item.popular,
 }));
 
-const homeBarbers = barbers.slice(0, 3).map((item) => ({
+const homeBarbers: BarberProfile[] = barbers.slice(0, 3).map((item) => ({
   initial: item.initials,
   name: item.name,
   role: item.role,
   rating: item.rating,
 }));
 
+const serviceRows = [services.slice(0, 2), services.slice(2, 4)];
+
 export default function Home() {
   return (
     <View className="flex-1 bg-bg bg-[#110F0E] pt-10">
       <SafeAreaView className="flex-1" edges={["top"]}>
-        <ScrollView  showsVerticalScrollIndicator={false} className="pb-8">
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 30 }}
+          className="pb-2"
+        >
           <View className="px-6 pt-2 flex-row items-center">
             <View className="flex-1">
               <Text className="text-text-muted text-[#988C81] text-base">Bem-vindo 👋</Text>
               <Text className="text-text text-white text-3xl mt-1">João Silva</Text>
             </View>
+
             <Pressable className="w-11 h-11 rounded-full bg-bg-card items-center justify-center mr-3 border bg-[#292623] border-white/5">
               <Ionicons name="notifications-outline" size={20} color="#f5ecd9" />
               <View className="absolute top-2 right-2 w-2 h-2 rounded-full bg-gold" />
             </Pressable>
+
             <LinearGradient
-              colors={["#CC8F33", "#c79a3e", "#e2b558"]}
+              colors={GRADIENT_COLORS}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
-              style={{
-                width: 44,
-                height: 44,
-                borderRadius: 22,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
+              style={{ width: 44, height: 44, borderRadius: 22, alignItems: "center", justifyContent: "center" }}
             >
-              <Text style={{ color: "#0a0805", fontWeight: "bold" }}>
-                JS
-              </Text>
+              <Text style={{ color: "#0a0805", fontWeight: "bold" }}>JS</Text>
             </LinearGradient>
           </View>
 
@@ -68,7 +85,7 @@ export default function Home() {
 
           <View className="px-6 mt-6">
             <LinearGradient
-              colors={["#CC8F33", "#c79a3e", "#e2b558"]}
+              colors={GRADIENT_COLORS}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
               style={{ borderRadius: 20, padding: 20 }}
@@ -92,14 +109,13 @@ export default function Home() {
             </View>
 
             <View className="mt-4 gap-3">
-              <View className="flex-row gap-3">
-                <ServiceCard {...services[0]} />
-                <ServiceCard {...services[1]} />
-              </View>
-              <View className="flex-row gap-3">
-                <ServiceCard {...services[2]} />
-                <ServiceCard {...services[3]} />
-              </View>
+              {serviceRows.map((row, index) => (
+                <View key={index} className="flex-row gap-3">
+                  {row.map((service) => (
+                    <ServiceCard key={service.title} {...service} />
+                  ))}
+                </View>
+              ))}
             </View>
           </View>
 
@@ -113,8 +129,8 @@ export default function Home() {
             </View>
 
             <View className="mt-4 gap-3">
-              {homeBarbers.map((b) => (
-                <BarberRow key={b.name} {...b} />
+              {homeBarbers.map((barber) => (
+                <BarberRow key={barber.name} {...barber} />
               ))}
             </View>
           </View>

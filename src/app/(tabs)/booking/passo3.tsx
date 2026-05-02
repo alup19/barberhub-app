@@ -3,11 +3,11 @@ import { router } from "expo-router";
 import { useMemo, useState } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useBooking } from "../../components/BookingContext";
-import PrimaryButton from "../../components/PrimaryButton";
-import ScreenHeader from "../../components/ScreenHeader";
-import Stepper from "../../components/Stepper";
-import { timeSlots } from "../../constants/data";
+import { useBooking } from "../../../components/BookingContext";
+import PrimaryButton from "../../../components/PrimaryButton";
+import ScreenHeader from "../../../components/ScreenHeader";
+import Stepper from "../../../components/Stepper";
+import { timeSlots } from "../../../constants/data";
 
 const monthNames = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
 const dayHeaders = ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SÁB"];

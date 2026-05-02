@@ -2,10 +2,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useBooking } from "../../components/BookingContext";
-import ScreenHeader from "../../components/ScreenHeader";
-import Stepper from "../../components/Stepper";
-import { barbers } from "../../constants/data";
+import { useBooking } from "../../../components/BookingContext";
+import ScreenHeader from "../../../components/ScreenHeader";
+import Stepper from "../../../components/Stepper";
+import { barbers } from "../../../constants/data";
 
 export default function Step1() {
   const { setBarber } = useBooking();
