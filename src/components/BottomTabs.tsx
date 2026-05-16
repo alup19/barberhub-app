@@ -17,7 +17,7 @@ export default function BottomTabs({ active, onChange }: Props) {
     <View className="flex-row bg-bg border-t border-surface2 pt-2 pb-6">
       {TABS.map((t) => {
         const isActive = active === t.key;
-        const color = isActive ? "#D4A24C" : "#6B6B75";
+        const color = isActive ? "#D4A24C" : "#988C81";
         return (
           <TouchableOpacity
             key={t.key}

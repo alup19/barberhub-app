@@ -12,19 +12,19 @@ export default function ConfigScreen() {
     <ScrollView contentContainerStyle={{ padding: 20, paddingBottom: 40 }}>
       <ScreenHeader title="Configurações" subtitle="Barbearia & preferências" />
 
-      <View className="bg-surface border border-border rounded-2xl p-4 flex-row items-center mb-6">
-        <View className="w-14 h-14 rounded-full bg-goldDark items-center justify-center mr-3">
-          <Ionicons name="sad-outline" size={26} color="#fff" />
+      <View className="bg-[#1B1B1B] border border-[#3A3A3A] rounded-2xl p-4 flex-row items-center mb-6">
+        <View className="w-14 h-14 rounded-full bg-[#CC8F3320] items-center justify-center mr-3">
+          <Ionicons name="sad-outline" size={26} color="#D4A24C" />
         </View>
         <View className="flex-1">
           <Text className="text-white text-lg font-bold">Barbearia Nome</Text>
-          <Text className="text-textmuted text-xs">Carlos Mendes · Proprietário</Text>
+          <Text className="text-[#988C81] text-xs">Carlos Mendes · Proprietário</Text>
           <View className="flex-row items-center mt-1">
-            <View className="w-2 h-2 rounded-full bg-success mr-1.5" />
-            <Text className="text-success text-xs">Aberto agora</Text>
+            <View className="w-2 h-2 rounded-full bg-[#22C55E] mr-1.5" />
+            <Text className="text-[#22C55E] text-xs">Aberto agora</Text>
           </View>
         </View>
-        <TouchableOpacity className="w-9 h-9 rounded-lg bg-surface2 border border-border items-center justify-center">
+        <TouchableOpacity className="w-9 h-9 rounded-lg bg-[#252525] border border-[#3A3A3A] items-center justify-center">
           <Ionicons name="create-outline" size={16} color="#D4A24C" />
         </TouchableOpacity>
       </View>
@@ -60,19 +60,19 @@ export default function ConfigScreen() {
 
 const Section = ({ title, children }: { title: string; children: ReactNode }) => (
   <View className="mb-6">
-    <Text className="text-textmuted text-xs tracking-widest mb-3">{title}</Text>
-    <View className="bg-surface border border-border rounded-2xl overflow-hidden">{children}</View>
+    <Text className="text-[#988C81] text-xs tracking-widest mb-3">{title}</Text>
+    <View className="bg-[#1B1B1B] border border-[#3A3A3A] rounded-2xl overflow-hidden">{children}</View>
   </View>
 );
 
 const Row = ({ icon, title, sub, right, danger }: { icon: keyof typeof Ionicons.glyphMap; title: string; sub?: string; right?: ReactNode; danger?: boolean }) => (
-  <TouchableOpacity className="flex-row items-center px-4 py-3.5 border-b border-border" activeOpacity={0.7}>
-    <View className="w-9 h-9 rounded-lg bg-surface2 items-center justify-center mr-3">
+  <TouchableOpacity className="flex-row items-center px-4 py-3.5 border-b border-[#3A3A3A]" activeOpacity={0.7}>
+    <View className="w-9 h-9 rounded-lg bg-[#252525] items-center justify-center mr-3">
       <Ionicons name={icon} size={18} color={danger ? "#E5484D" : "#D4A24C"} />
     </View>
     <View className="flex-1">
-      <Text className={`font-semibold ${danger ? "text-danger" : "text-white"}`}>{title}</Text>
-      {sub && <Text className="text-textmuted text-xs mt-0.5">{sub}</Text>}
+      <Text className={`font-semibold ${danger ? "text-[#E5484D]" : "text-white"}`}>{title}</Text>
+      {sub && <Text className="text-[#988C81] text-xs mt-0.5">{sub}</Text>}
     </View>
     {right || (!danger && <Ionicons name="chevron-forward" size={18} color="#9A9AA5" />)}
   </TouchableOpacity>

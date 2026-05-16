@@ -10,14 +10,14 @@ export default function NovoBarbeiroScreen({ onBack }: { onBack: () => void }) {
   return (
     <ScrollView contentContainerStyle={{ padding: 20, paddingBottom: 40 }}>
       <ScreenHeader title="Novo Barbeiro" onBack={onBack} />
-      <Text className="text-textmuted text-xs tracking-widest mb-4">CADASTRO DA EQUIPE</Text>
+      <Text className="text-[#988C81] text-xs tracking-widest mb-4">CADASTRO DA EQUIPE</Text>
 
       <Field label="Nome completo" placeholder="Ex: Carlos Silva" />
       <Field label="Telefone" placeholder="(11) 91234-5678" keyboardType="phone-pad" />
       <Field label="E-mail" placeholder="email@barbearia.com" keyboardType="email-address" />
       <Field label="Anos de experiência" placeholder="Ex: 5" keyboardType="numeric" />
 
-      <Text className="text-textmuted text-sm mb-2">Função</Text>
+      <Text className="text-[#988C81] text-sm mb-2">Função</Text>
       <View className="flex-row gap-3 mb-5">
         {ROLES.map((r) => {
           const active = r === role;
@@ -25,9 +25,9 @@ export default function NovoBarbeiroScreen({ onBack }: { onBack: () => void }) {
             <TouchableOpacity
               key={r}
               onPress={() => setRole(r)}
-              className={`flex-1 py-3 rounded-2xl border items-center ${active ? "border-gold bg-goldDark/20" : "border-border bg-surface"}`}
+              className={`flex-1 py-3 rounded-2xl border items-center ${active ? "border-[#CC8F33] bg-[#CC8F3320]" : "border-[#3A3A3A] bg-[#1B1B1B]"}`}
             >
-              <Text className={active ? "text-gold font-semibold" : "text-textmuted"}>{r}</Text>
+              <Text className={active ? "text-[#CC8F33] font-semibold" : "text-[#988C81]"}>{r}</Text>
             </TouchableOpacity>
           );
         })}
@@ -44,9 +44,9 @@ export default function NovoBarbeiroScreen({ onBack }: { onBack: () => void }) {
 function Field({ label, placeholder, keyboardType }: { label: string; placeholder: string; keyboardType?: KeyboardTypeOptions }) {
   return (
     <View className="mb-4">
-      <Text className="text-textmuted text-sm mb-2">{label}</Text>
-      <View className="bg-surface border border-border rounded-2xl px-4 py-4">
-        <TextInput placeholder={placeholder} placeholderTextColor="#6B6B75" className="text-white" keyboardType={keyboardType} />
+      <Text className="text-[#988C81] text-sm mb-2">{label}</Text>
+      <View className="bg-[#1B1B1B] border border-[#3A3A3A] rounded-2xl px-4 py-4">
+        <TextInput placeholder={placeholder} placeholderTextColor="#988C81" className="text-[#988C81]" keyboardType={keyboardType} />
       </View>
     </View>
   );

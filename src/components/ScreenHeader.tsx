@@ -20,10 +20,10 @@ export default function ScreenHeader({ title, subtitle, onBack, right }: Props) 
         ) : null}
 
         <View className="flex-1">
-          <Text className="text-2xl text-white" style={{ fontFamily: "serif" }}>
+          <Text className="text-2xl text-white" style={{ fontFamily: "Arial" }}>
             {title}
           </Text>
-          {subtitle ? <Text className="text-textmuted text-sm mt-1">{subtitle}</Text> : null}
+          {subtitle ? <Text className="text-[#988C81] text-sm mt-1">{subtitle}</Text> : null}
         </View>
       </View>
 
