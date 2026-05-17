@@ -3,6 +3,7 @@ import { router } from "expo-router";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { BottomNavigator } from "../../components/BottomNavigator";
+import { useAuth } from "../../context/AuthContext";
 
 const menu = [
   { icon: "calendar-outline", label: "Meus Agendamentos" },
@@ -13,6 +14,8 @@ const menu = [
 ] as const;
 
 export default function Profile() {
+  const { logout } = useAuth();
+
   return (
     <SafeAreaView className="flex-1 bg-bg" edges={["top"]}>
       <ScrollView contentContainerStyle={{ paddingBottom: 120 }}>
@@ -62,7 +65,10 @@ export default function Profile() {
             <View className="w-9 h-9 rounded-lg bg-danger/15 items-center justify-center">
               <Ionicons name="log-out-outline" size={18} color="#ef4444" />
             </View>
-            <Text className="text-danger font-semibold ml-3 flex-1">Sair da conta</Text>
+            <Text className="text-danger font-semibold ml-3 flex-1" onPress={async () => {
+              await logout();
+              router.replace("/login");
+            }}>Sair da conta</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

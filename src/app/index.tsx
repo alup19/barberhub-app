@@ -1,9 +1,15 @@
-import { router } from "expo-router";
+import { router, Redirect } from "expo-router";
 import { Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { GoldButton } from "../components/GoldButton";
+import { useAuth } from "../context/AuthContext";
 
 export default function Splash() {
+  const { usuario, loading } = useAuth();
+
+  if (loading) return null;
+  if (usuario) return <Redirect href="../(tabs)" />;
+
   return (
     <SafeAreaView className="flex-1 bg-bg bg-[#110F0E]">
       <View className="flex-1 items-center justify-center">
