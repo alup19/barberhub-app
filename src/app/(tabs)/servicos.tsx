@@ -15,7 +15,7 @@ export default function Services() {
   const list = cat === "Todos" ? services : services.filter((s) => s.category === cat);
 
   return (
-    <SafeAreaView className="flex-1 bg-bg" edges={["top"]}>
+    <SafeAreaView className="flex-1 bg-[#110F0E]" edges={["top"]}>
       <Text className="text-3xl text-white mt-2 mx-5" style={{ fontFamily: "serif" }}>
         Serviços
       </Text>
@@ -27,9 +27,9 @@ export default function Services() {
             <TouchableOpacity
               key={c}
               onPress={() => setCat(c)}
-              className={`px-5 h-10 rounded-full items-center justify-center ${active ? "bg-gold" : "bg-bg-card border border-line"}`}
+              className={`px-5 h-10 rounded-full items-center justify-center ${active ? "bg-[#CC8F33]" : "bg-[#1B1B1B] border border-[#3A3A3A]"}`}
             >
-              <Text className={`${active ? "text-bg font-bold" : "text-muted"}`}>{c}</Text>
+              <Text className={active ? "text-black font-bold" : "text-[#988C81]"}>{c}</Text>
             </TouchableOpacity>
           );
         })}
@@ -37,29 +37,29 @@ export default function Services() {
 
       <ScrollView className="mt-4" contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 100, gap: 12 }}>
         {list.map((s) => (
-          <View key={s.id} className="bg-bg-card rounded-2xl p-4 flex-row items-center border border-line">
-            <View className="w-12 h-12 rounded-xl bg-gold/15 items-center justify-center mr-3">
-              <Ionicons name={iconMap[s.icon] as any} size={22} color="#d4a24c" />
+          <View key={s.id} className="bg-[#1B1B1B] rounded-2xl p-4 flex-row items-center border border-[#3A3A3A]">
+            <View className="w-12 h-12 rounded-xl bg-[#CC8F3320] items-center justify-center mr-3">
+              <Ionicons name={iconMap[s.icon] as any} size={22} color="#D4A24C" />
             </View>
             <View className="flex-1">
               <View className="flex-row items-center">
                 <Text className="text-white font-semibold flex-1">{s.name}</Text>
                 {s.popular && (
-                  <View className="bg-gold/20 px-2 py-0.5 rounded-full">
-                    <Text className="text-gold text-xs font-semibold">Popular</Text>
+                  <View className="bg-[#CC8F3320] px-2 py-0.5 rounded-full">
+                    <Text className="text-[#CC8F33] text-xs font-semibold">Popular</Text>
                   </View>
                 )}
               </View>
-              <Text className="text-muted text-xs mt-1">{s.description}</Text>
+              <Text className="text-[#988C81] text-xs mt-1">{s.description}</Text>
               <View className="flex-row items-center mt-2 gap-3">
-                <Text className="text-gold font-bold">R$ {s.price}</Text>
+                <Text className="text-[#CC8F33] font-bold">R$ {s.price}</Text>
                 <View className="flex-row items-center">
-                  <Ionicons name="time-outline" size={12} color="#9a9a9a" />
-                  <Text className="text-muted text-xs ml-1">{s.duration} min</Text>
+                  <Ionicons name="time-outline" size={12} color="#988C81" />
+                  <Text className="text-[#988C81] text-xs ml-1">{s.duration} min</Text>
                 </View>
               </View>
             </View>
-            <Ionicons name="chevron-forward" size={20} color="#9a9a9a" />
+            <Ionicons name="chevron-forward" size={20} color="#9A9AA5" />
           </View>
         ))}
       </ScrollView>

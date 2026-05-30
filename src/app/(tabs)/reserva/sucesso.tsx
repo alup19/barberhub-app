@@ -1,6 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { Text, View } from "react-native";
+import { useEffect, useRef } from "react";
+import { Animated, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useBooking } from "../../../components/BookingContext";
 import PrimaryButton from "../../../components/PrimaryButton";
@@ -8,63 +9,110 @@ import PrimaryButton from "../../../components/PrimaryButton";
 export default function Success() {
   const { barber, service, date, time, reset } = useBooking();
 
+  const scale = useRef(new Animated.Value(0)).current;
+  const opacity = useRef(new Animated.Value(0)).current;
+  const ring = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.sequence([
+      Animated.spring(scale, {
+        toValue: 1,
+        friction: 5,
+        tension: 80,
+        useNativeDriver: true,
+      }),
+      Animated.loop(
+        Animated.sequence([
+          Animated.parallel([
+            Animated.timing(ring, { toValue: 1, duration: 800, useNativeDriver: true }),
+            Animated.timing(opacity, { toValue: 0, duration: 800, useNativeDriver: true }),
+          ]),
+          Animated.parallel([
+            Animated.timing(ring, { toValue: 0, duration: 0, useNativeDriver: true }),
+            Animated.timing(opacity, { toValue: 1, duration: 0, useNativeDriver: true }),
+          ]),
+        ])
+      ),
+    ]).start();
+  }, []);
+
+  const ringScale = ring.interpolate({ inputRange: [0, 1], outputRange: [1, 1.6] });
+
   return (
-    <SafeAreaView className="flex-1 bg-bg" edges={["top", "bottom"]}>
+    <SafeAreaView className="flex-1 bg-[#110F0E]" edges={["top", "bottom"]}>
       <View className="flex-1 px-6 justify-center">
         <View className="items-center">
-          <View className="w-24 h-24 rounded-full bg-success items-center justify-center">
-            <Ionicons name="checkmark" size={56} color="#fff" />
+          <View style={{ width: 96, height: 96, alignItems: "center", justifyContent: "center" }}>
+            <Animated.View
+              style={{
+                position: "absolute",
+                width: 96,
+                height: 96,
+                borderRadius: 48,
+                backgroundColor: "#22C55E30",
+                transform: [{ scale: ringScale }],
+                opacity,
+              }}
+            />
+            <Animated.View
+              style={{
+                width: 96,
+                height: 96,
+                borderRadius: 48,
+                backgroundColor: "#22C55E20",
+                alignItems: "center",
+                justifyContent: "center",
+                transform: [{ scale }],
+              }}
+            >
+              <Ionicons name="checkmark" size={56} color="#22C55E" />
+            </Animated.View>
           </View>
+
           <Text className="text-white text-3xl mt-6" style={{ fontFamily: "serif" }}>
             Agendado!
           </Text>
-          <Text className="text-muted text-center mt-2 leading-5">
+          <Text className="text-[#988C81] text-center mt-2 leading-5">
             João, seu horário foi confirmado com sucesso.{"\n"}Você receberá uma notificação de lembrete.
           </Text>
         </View>
 
-        <View className="bg-bg-card rounded-2xl p-5 border border-line mt-8">
+        <View className="bg-[#1B1B1B] rounded-2xl p-5 border border-[#3A3A3A] mt-8">
           <View className="flex-row items-center">
-            <View className="w-12 h-12 rounded-full bg-gold items-center justify-center">
-              <Text className="text-bg font-bold">{barber?.initials ?? "CS"}</Text>
+            <View className="w-12 h-12 rounded-full bg-[#CC8F3320] items-center justify-center">
+              <Text className="text-[#CC8F33] font-bold">{barber?.initials ?? "CS"}</Text>
             </View>
             <View className="ml-3 flex-1">
               <Text className="text-white font-semibold">{barber?.name ?? "Carlos Silva"}</Text>
-              <Text className="text-muted text-xs">{barber?.role ?? "Master Barber"}</Text>
+              <Text className="text-[#988C81] text-xs">{barber?.role ?? "Master Barber"}</Text>
             </View>
-            <View className="w-7 h-7 rounded-full bg-success items-center justify-center">
-              <Ionicons name="checkmark" size={16} color="#fff" />
+            <View className="w-7 h-7 rounded-full bg-[#22C55E20] items-center justify-center">
+              <Ionicons name="checkmark" size={16} color="#22C55E" />
             </View>
           </View>
 
-          <View className="h-px bg-line my-4" />
+          <View className="h-px bg-[#3A3A3A] my-4" />
 
           <Detail icon="cut-outline" label="Serviço" value={service?.name ?? "Corte + Barba"} />
           <Detail icon="calendar-outline" label="Data" value={date ?? "7 de Abril, 2026"} />
           <Detail icon="time-outline" label="Horário" value={time ?? "10:30"} />
 
-          <View className="h-px bg-line my-4" />
+          <View className="h-px bg-[#3A3A3A] my-4" />
           <View className="flex-row justify-between">
             <Text className="text-white font-bold">Total</Text>
-            <Text className="text-gold text-xl font-bold">R$ {service?.price ?? 55}</Text>
+            <Text className="text-[#CC8F33] text-xl font-bold">R$ {service?.price ?? 55}</Text>
           </View>
         </View>
 
         <View className="mt-8 gap-3">
           <PrimaryButton
             label="Ver agendamentos"
-            onPress={() => {
-              reset();
-              router.replace("/agendamentos");
-            }}
+            onPress={() => { reset(); router.replace("/agendamentos"); }}
           />
           <PrimaryButton
             label="Voltar ao início"
             variant="outline"
-            onPress={() => {
-              reset();
-              router.replace("/home");
-            }}
+            onPress={() => { reset(); router.replace("/home"); }}
           />
         </View>
       </View>
@@ -75,8 +123,8 @@ export default function Success() {
 function Detail({ icon, label, value }: { icon: any; label: string; value: string }) {
   return (
     <View className="flex-row items-center py-1.5">
-      <Ionicons name={icon} size={16} color="#d4a24c" />
-      <Text className="text-muted ml-2 flex-1">{label}</Text>
+      <Ionicons name={icon} size={16} color="#D4A24C" />
+      <Text className="text-[#988C81] ml-2 flex-1">{label}</Text>
       <Text className="text-white font-semibold">{value}</Text>
     </View>
   );

@@ -34,40 +34,32 @@ export default function Step2() {
 
   const cells = useMemo(() => buildMonth(year, month), [year, month]);
 
-  const next = () => {
-    const d = new Date(year, month + 1, 1);
-    setYear(d.getFullYear());
-    setMonth(d.getMonth());
-  };
-  const prev = () => {
-    const d = new Date(year, month - 1, 1);
-    setYear(d.getFullYear());
-    setMonth(d.getMonth());
-  };
+  const next = () => { const d = new Date(year, month + 1, 1); setYear(d.getFullYear()); setMonth(d.getMonth()); };
+  const prev = () => { const d = new Date(year, month - 1, 1); setYear(d.getFullYear()); setMonth(d.getMonth()); };
 
   const canContinue = selectedDay !== null && selectedTime !== null;
 
   if (!barber || !service) return null;
 
   return (
-    <SafeAreaView className="flex-1 bg-bg" edges={["top"]}>
+    <SafeAreaView className="flex-1 bg-[#110F0E]" edges={["top"]}>
       <ScreenHeader title="Agendar" onBack={() => router.back()} />
       <Stepper current={2} labels={["Barbeiro/Serviço", "Data/Hora", "Confirmar"]} />
 
       <ScrollView contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 140, gap: 18 }}>
-        <View className="bg-bg-card rounded-2xl p-4 border border-line flex-row items-center">
-          <View className="w-12 h-12 rounded-full bg-gold items-center justify-center">
-            <Text className="text-bg font-bold">{barber.initials}</Text>
+        <View className="bg-[#1B1B1B] rounded-2xl p-4 border border-[#3A3A3A] flex-row items-center">
+          <View className="w-12 h-12 rounded-full bg-[#CC8F3320] items-center justify-center">
+            <Text className="text-[#CC8F33] font-bold">{barber.initials}</Text>
           </View>
           <View className="ml-3 flex-1">
             <Text className="text-white font-semibold">{barber.name}</Text>
-            <Text className="text-muted text-xs">{barber.role}</Text>
+            <Text className="text-[#988C81] text-xs">{barber.role}</Text>
             <View className="mt-2 flex-row gap-2">
-              <View className="bg-bg-elevated px-2 py-1 rounded-full">
-                <Text className="text-muted text-xs">{service.name}</Text>
+              <View className="bg-[#252525] px-2 py-1 rounded-full">
+                <Text className="text-[#988C81] text-xs">{service.name}</Text>
               </View>
-              <View className="bg-gold/15 px-2 py-1 rounded-full">
-                <Text className="text-gold text-xs font-bold">R$ {service.price}</Text>
+              <View className="bg-[#CC8F3320] px-2 py-1 rounded-full">
+                <Text className="text-[#CC8F33] text-xs font-bold">R$ {service.price}</Text>
               </View>
             </View>
           </View>
@@ -75,13 +67,13 @@ export default function Step2() {
 
         <Text className="text-white text-base font-semibold">Escolha o dia</Text>
 
-        <View className="bg-bg-card rounded-2xl p-4 border border-line">
+        <View className="bg-[#1B1B1B] rounded-2xl p-4 border border-[#3A3A3A]">
           <View className="flex-row items-center justify-between mb-3">
-            <TouchableOpacity onPress={prev} className="w-9 h-9 rounded-lg bg-bg-elevated items-center justify-center">
+            <TouchableOpacity onPress={prev} className="w-9 h-9 rounded-lg bg-[#252525] items-center justify-center">
               <Ionicons name="chevron-back" size={18} color="#fff" />
             </TouchableOpacity>
             <Text className="text-white font-semibold">{monthNames[month]} {year}</Text>
-            <TouchableOpacity onPress={next} className="w-9 h-9 rounded-lg bg-bg-elevated items-center justify-center">
+            <TouchableOpacity onPress={next} className="w-9 h-9 rounded-lg bg-[#252525] items-center justify-center">
               <Ionicons name="chevron-forward" size={18} color="#fff" />
             </TouchableOpacity>
           </View>
@@ -89,7 +81,7 @@ export default function Step2() {
           <View className="flex-row">
             {dayHeaders.map((h) => (
               <View key={h} className="flex-1 items-center py-1">
-                <Text className="text-muted text-xs">{h}</Text>
+                <Text className="text-[#988C81] text-xs">{h}</Text>
               </View>
             ))}
           </View>
@@ -105,8 +97,10 @@ export default function Step2() {
                   style={{ width: `${100 / 7}%` }}
                   className="items-center py-2"
                 >
-                  <View className={`w-9 h-9 rounded-full items-center justify-center ${isSelected ? "bg-gold" : ""}`}>
-                    <Text className={`${isSelected ? "text-bg font-bold" : c.current ? "text-white" : "text-muted/40"}`}>{c.day}</Text>
+                  <View className={`w-9 h-9 rounded-full items-center justify-center ${isSelected ? "bg-[#CC8F33]" : ""}`}>
+                    <Text className={`${isSelected ? "text-black font-bold" : c.current ? "text-white" : "text-[#988C81] opacity-40"}`}>
+                      {c.day}
+                    </Text>
                   </View>
                 </TouchableOpacity>
               );
@@ -126,17 +120,21 @@ export default function Step2() {
                 onPress={() => setSelectedTime(s.time)}
                 style={{ width: "31%" }}
                 className={`py-3 rounded-xl items-center border ${
-                  sel ? "bg-gold border-gold" : !s.available ? "bg-bg-elevated border-line opacity-40" : "bg-bg-card border-line"
+                  sel
+                    ? "bg-[#CC8F33] border-[#CC8F33]"
+                    : !s.available
+                    ? "bg-[#252525] border-[#3A3A3A] opacity-40"
+                    : "bg-[#1B1B1B] border-[#3A3A3A]"
                 }`}
               >
-                <Text className={`${sel ? "text-bg font-bold" : "text-white"}`}>{s.time}</Text>
+                <Text className={`${sel ? "text-black font-bold" : "text-white"}`}>{s.time}</Text>
               </TouchableOpacity>
             );
           })}
         </View>
       </ScrollView>
 
-      <View className="absolute bottom-0 left-0 right-0 bg-bg border-t border-line p-5">
+      <View className="absolute bottom-0 left-0 right-0 bg-[#110F0E] border-t border-[#3A3A3A] p-5">
         <PrimaryButton
           label="Continuar para confirmação"
           icon="arrow-forward"
