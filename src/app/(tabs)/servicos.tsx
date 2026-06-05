@@ -16,7 +16,7 @@ export default function Services() {
 
   return (
     <SafeAreaView className="flex-1 bg-[#110F0E]" edges={["top"]}>
-      <Text className="text-3xl text-white mt-2 mx-5" style={{ fontFamily: "serif" }}>
+      <Text className="text-3xl text-white mt-2 mx-5 pt-8" style={{ fontFamily: "serif" }}>
         Serviços
       </Text>
 
@@ -52,7 +52,7 @@ export default function Services() {
               </View>
               <Text className="text-[#988C81] text-xs mt-1">{s.description}</Text>
               <View className="flex-row items-center mt-2 gap-3">
-                <Text className="text-[#CC8F33] font-bold">R$ {s.price}</Text>
+                <Text className="text-[#CC8F33] font-bold text-lg">R$ {s.price}</Text>
                 <View className="flex-row items-center">
                   <Ionicons name="time-outline" size={12} color="#988C81" />
                   <Text className="text-[#988C81] text-xs ml-1">{s.duration} min</Text>

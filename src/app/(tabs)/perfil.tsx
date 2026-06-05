@@ -18,8 +18,8 @@ export default function Profile() {
 
   return (
     <SafeAreaView className="flex-1 bg-[#110F0E]" edges={["top"]}>
-      <ScrollView contentContainerStyle={{ paddingBottom: 120 }}>
-        <Text className="text-3xl text-white mt-2 mx-5" style={{ fontFamily: "serif" }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: 30 }}>
+        <Text className="text-3xl text-white mt-2 mx-5 pt-8" style={{ fontFamily: "serif" }}>
           Perfil
         </Text>
 

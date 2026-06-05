@@ -28,7 +28,7 @@ export default function Appointments() {
 
   return (
     <SafeAreaView className="flex-1 bg-[#110F0E]" edges={["top"]}>
-      <Text className="text-3xl text-white mt-2 mx-5" style={{ fontFamily: "serif" }}>
+      <Text className="text-3xl text-white mt-2 mx-5 pt-8" style={{ fontFamily: "serif" }}>
         Meus Agendamentos
       </Text>
 
@@ -72,7 +72,7 @@ export default function Appointments() {
                   <Text className="text-[#988C81] text-xs">{a.barber}</Text>
                 </View>
                 <View className="items-end">
-                  <Text className="text-[#CC8F33] font-bold">R$ {a.price}</Text>
+                  <Text className="text-[#CC8F33] font-bold text-lg">R$ {a.price}</Text>
                   <View className={`px-2 py-0.5 rounded-full mt-1 ${statusBg}`}>
                     <Text className={`text-xs font-semibold ${statusText}`}>{a.status}</Text>
                   </View>

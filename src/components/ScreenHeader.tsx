@@ -11,7 +11,7 @@ type Props = {
 
 export default function ScreenHeader({ title, subtitle, onBack, right }: Props) {
   return (
-    <View className="flex-row items-center justify-between px-5 pt-2 pb-4">
+    <View className="flex-row items-center justify-between px-5 pt-8 pb-4">
       <View className="flex-row items-center flex-1">
         {onBack ? (
           <TouchableOpacity onPress={onBack} className="mr-3">

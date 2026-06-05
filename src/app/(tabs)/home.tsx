@@ -44,7 +44,7 @@ const serviceRows = [services.slice(0, 2), services.slice(2, 4)];
 
 export default function Home() {
   return (
-    <View className="flex-1 bg-bg bg-[#110F0E] pt-10">
+    <View className="flex-1 bg-bg bg-[#110F0E] pt-8">
       <SafeAreaView className="flex-1" edges={["top"]}>
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -91,7 +91,7 @@ export default function Home() {
               style={{ borderRadius: 20, padding: 20 }}
             >
               <Text className="text-[#110F0E]/70 text-xs font-bold tracking-widest">OFERTA ESPECIAL</Text>
-              <Text className="font-serif text-[#110F0E] text-3xl mt-2">20% OFF</Text>
+              <Text className="font-serif text-[#110F0E] text-5xl mt-2">20% OFF</Text>
               <Text className="text-[#110F0E]/80 text-sm mt-1">No primeiro agendamento</Text>
               <Pressable onPress={() => router.push("/reserva/passo1")} className="bg-[#110F0E] self-start mt-4 rounded-xl px-4 py-2.5">
                 <Text className="text-[#CC8F33] font-semibold text-sm">Agendar agora</Text>

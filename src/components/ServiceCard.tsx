@@ -22,7 +22,7 @@ export function ServiceCard({ icon, title, price, duration, popular }: Props) {
       </View>
       <Text className="text-text text-white font-semibold mt-4 text-base">{title}</Text>
       <View className="flex-row items-center gap-2 mt-1">
-        <Text className="text-[#CC8F33] text-lg font-bold pr-2">R$ {price}</Text>
+        <Text className="text-[#CC8F33] text-xl font-bold pr-2">R$ {price}</Text>
         <View className="flex flex-row items-center gap-1">
           <Ionicons name="time-outline" size={13} color="#988C81" />
           <Text className="text-text-muted text-[#988C81] text-sm">{duration}</Text>
