@@ -1,9 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { ReactNode, useState } from "react";
 import { ScrollView, Switch, Text, TouchableOpacity, View } from "react-native";
 import ScreenHeader from "../../components/ScreenHeader";
+import { useAuth } from "../../context/AuthContext";
 
 export default function ConfigScreen() {
+  const { logout } = useAuth();
   const [novos, setNovos] = useState(true);
   const [lembretes, setLembretes] = useState(true);
   const [cancel, setCancel] = useState(false);
@@ -52,7 +55,10 @@ export default function ConfigScreen() {
       <Section title="CONTA">
         <Row icon="person-outline" title="Alterar Perfil" />
         <Row icon="lock-closed-outline" title="Segurança" />
-        <Row icon="log-out-outline" title="Sair da Conta" danger />
+        <Row onPress={async () => {
+          await logout();
+          router.replace("/login");
+        }} icon="log-out-outline" title="Sair da Conta" danger />
       </Section>
     </ScrollView>
   );
@@ -65,8 +71,8 @@ const Section = ({ title, children }: { title: string; children: ReactNode }) =>
   </View>
 );
 
-const Row = ({ icon, title, sub, right, danger }: { icon: keyof typeof Ionicons.glyphMap; title: string; sub?: string; right?: ReactNode; danger?: boolean }) => (
-  <TouchableOpacity className="flex-row items-center px-4 py-3.5 border-b border-[#3A3A3A]" activeOpacity={0.7}>
+const Row = ({ icon, title, sub, right, danger, onPress }: { icon: keyof typeof Ionicons.glyphMap; title: string; sub?: string; right?: ReactNode; danger?: boolean; onPress?: () => void }) => (
+  <TouchableOpacity onPress={onPress} className="flex-row items-center px-4 py-3.5 border-b border-[#3A3A3A]" activeOpacity={0.7}>
     <View className="w-9 h-9 rounded-lg bg-[#252525] items-center justify-center mr-3">
       <Ionicons name={icon} size={18} color={danger ? "#E5484D" : "#D4A24C"} />
     </View>

@@ -7,6 +7,7 @@ import { BarberRow } from "../../components/BarberRow";
 import { BottomNavigator } from "../../components/BottomNavigator";
 import { ServiceCard } from "../../components/ServiceCard";
 import { services as allServices, barbers } from "../../constants/data";
+import { useAuth } from "../../context/AuthContext";
 
 const GRADIENT_COLORS = ["#CC8F33", "#c79a3e", "#e2b558"] as const;
 
@@ -43,6 +44,8 @@ const homeBarbers: BarberProfile[] = barbers.slice(0, 3).map((item) => ({
 const serviceRows = [services.slice(0, 2), services.slice(2, 4)];
 
 export default function Home() {
+  const { usuario } = useAuth();
+
   return (
     <View className="flex-1 bg-bg bg-[#110F0E] pt-8">
       <SafeAreaView className="flex-1" edges={["top"]}>
@@ -54,7 +57,7 @@ export default function Home() {
           <View className="px-6 pt-2 flex-row items-center">
             <View className="flex-1">
               <Text className="text-text-muted text-[#988C81] text-base">Bem-vindo 👋</Text>
-              <Text className="text-text text-white text-3xl mt-1">João Silva</Text>
+              <Text className="text-text text-white text-2xl mt-1">{usuario?.nome || "Usuário"}</Text>
             </View>
 
             <Pressable className="w-11 h-11 rounded-full bg-bg-card items-center justify-center mr-3 border bg-[#292623] border-white/5">
@@ -70,17 +73,6 @@ export default function Home() {
             >
               <Text style={{ color: "#0a0805", fontWeight: "bold" }}>JS</Text>
             </LinearGradient>
-          </View>
-
-          <View className="px-6 mt-6">
-            <View className="flex-row items-center bg-bg-card rounded-2xl px-4 h-12 border bg-[#292623] border-white/5">
-              <Ionicons name="search" size={18} color="#988C81" />
-              <TextInput
-                placeholder="Buscar serviços..."
-                placeholderTextColor="#988C81"
-                className="flex-1 text-text text-white ml-3"
-              />
-            </View>
           </View>
 
           <View className="px-6 mt-6">

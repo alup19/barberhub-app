@@ -14,7 +14,7 @@ const menu = [
 ] as const;
 
 export default function Profile() {
-  const { logout } = useAuth();
+  const { usuario, logout } = useAuth();
 
   return (
     <SafeAreaView className="flex-1 bg-[#110F0E]" edges={["top"]}>
@@ -27,9 +27,9 @@ export default function Profile() {
           <View className="w-24 h-24 rounded-full bg-[#CC8F3320] items-center justify-center">
             <Text className="text-[#CC8F33] text-3xl font-bold">JS</Text>
           </View>
-          <Text className="text-white text-xl font-semibold mt-3">João Silva</Text>
-          <Text className="text-[#988C81] text-sm">joao.silva@email.com</Text>
-          <Text className="text-[#988C81] text-sm">+55 11 99999-0000</Text>
+          <Text className="text-white text-xl font-semibold mt-3">{usuario?.nome || "Usuário"}</Text>
+          <Text className="text-[#988C81] text-sm">{usuario?.email || "Usuário"}</Text>
+          <Text className="text-[#988C81] text-sm">{usuario?.telefone || "Usuário"}</Text>
 
           <View className="flex-row w-full mt-5 border-t border-[#3A3A3A] pt-4">
             <Stat value="12" label="Visitas" />
@@ -53,13 +53,15 @@ export default function Profile() {
             </TouchableOpacity>
           ))}
 
-          <TouchableOpacity className="bg-[#1B1B1B] rounded-2xl px-4 py-4 flex-row items-center border border-[#CC8F3340] mt-2" onPress={() => router.push('/admin')}>
-            <View className="w-9 h-9 rounded-lg bg-[#CC8F3320] items-center justify-center">
-              <Ionicons name="shield-checkmark-outline" size={18} color="#D4A24C" />
-            </View>
-            <Text className="text-[#CC8F33] font-semibold ml-3 flex-1">Painel Admin</Text>
-            <Ionicons name="chevron-forward" size={20} color="#D4A24C" />
-          </TouchableOpacity>
+          {usuario?.admin && (
+            <TouchableOpacity className="bg-[#1B1B1B] rounded-2xl px-4 py-4 flex-row items-center border border-[#CC8F3340] mt-2" onPress={() => router.push('/admin')}>
+              <View className="w-9 h-9 rounded-lg bg-[#CC8F3320] items-center justify-center">
+                <Ionicons name="shield-checkmark-outline" size={18} color="#D4A24C" />
+              </View>
+              <Text className="text-[#CC8F33] font-semibold ml-3 flex-1">Painel Admin</Text>
+              <Ionicons name="chevron-forward" size={20} color="#D4A24C" />
+            </TouchableOpacity>
+          )}
 
           <TouchableOpacity className="bg-[#1B1B1B] rounded-2xl px-4 py-4 flex-row items-center border border-[#3A3A3A] mt-2">
             <View className="w-9 h-9 rounded-lg bg-[#E5484D20] items-center justify-center">

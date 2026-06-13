@@ -3,19 +3,22 @@ import { GoldButton } from "../../components/GoldButton";
 import StatusBadge from "../../components/StatusBadge";
 import { adminAppointments as appointments, type AdminAppointment as Appointment } from "../../constants/data";
 import { LinearGradient } from "expo-linear-gradient";
+import { useAuth } from "@/src/context/AuthContext";
 
 const GRADIENT_COLORS = ["#CC8F33", "#CC8F33", "#e2b558"] as const;
 
 type Props = { onNew: () => void };
 
 export default function AgendaScreen({ onNew }: Props) {
+  const { usuario } = useAuth();
+  
   return (
     <ScrollView contentContainerStyle={{ padding: 20, paddingBottom: 40, backgroundColor: "#110F0E" }}>
       <View className="flex-row justify-between items-start mb-5">
         <View>
           <Text className="text-textmuted text-xs tracking-widest mb-1 text-[#988C81]">SEGUNDA-FEIRA, 7 ABR</Text>
           <Text className="text-white text-2xl" style={{ fontFamily: "Arial", fontWeight: "700" }}>
-            Bom dia, João ✂️
+            Bom dia, {usuario?.nome || "Usuário"} ✂️
           </Text>
         </View>
         <View className="w-11 h-11 rounded-full bg-goldDark items-center justify-center">

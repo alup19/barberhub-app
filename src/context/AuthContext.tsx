@@ -7,9 +7,11 @@ type Usuario = {
   id: string;
   nome: string;
   email: string;
+  telefone: string;
   tipo: string;
   admin: boolean;
   token: string;
+  barbeariaId: string;
 };
 
 type AuthContextType = {
