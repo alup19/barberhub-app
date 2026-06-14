@@ -17,7 +17,7 @@ export default function NovoBarbeiroScreen({ onBack }: { onBack: () => void }) {
   const [anosExp, setAnosExp] = useState("");
   const [role, setRole] = useState("BARBEIRO");
   const [loading, setLoading] = useState(false);
-
+    
   const handleCadastrar = async () => {
     if (!nome.trim()) {
       Toast.show({ type: "error", text1: "Nome é obrigatório" });

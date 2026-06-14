@@ -19,6 +19,7 @@ type AuthContextType = {
   loading: boolean;
   login: (email: string, senha: string) => Promise<void>;
   logout: () => Promise<void>;
+  fetchComAuth: (url: string, options?: RequestInit) => Promise<Response>;
 };
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
@@ -56,8 +57,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUsuario(null);
   }
 
+  async function fetchComAuth(url: string, options: RequestInit = {}): Promise<Response> {
+    const response = await fetch(url, {
+      ...options,
+      headers: {
+        "Content-Type": "application/json",
+        ...options.headers,
+        Authorization: `Bearer ${usuario?.token}`,
+      },
+    });
+
+    if (response.status === 401) {
+      await logout();
+      throw new Error("Sessão expirada. Faça login novamente.");
+    }
+
+    return response;
+  }
+
   return (
-    <AuthContext.Provider value={{ usuario, loading, login, logout }}>
+    <AuthContext.Provider value={{ usuario, loading, login, logout, fetchComAuth }}>
       {children}
     </AuthContext.Provider>
   );
