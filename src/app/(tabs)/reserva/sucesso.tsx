@@ -3,10 +3,14 @@ import { router } from "expo-router";
 import { useEffect, useRef } from "react";
 import { Animated, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useAuth } from "../../../context/AuthContext";
 import { useBooking } from "../../../components/BookingContext";
 import PrimaryButton from "../../../components/PrimaryButton";
 
+const monthNames = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+
 export default function Success() {
+  const { usuario } = useAuth();
   const { barber, service, date, time, reset } = useBooking();
 
   const scale = useRef(new Animated.Value(0)).current;
@@ -37,6 +41,16 @@ export default function Success() {
   }, []);
 
   const ringScale = ring.interpolate({ inputRange: [0, 1], outputRange: [1, 1.6] });
+
+  // date vem como ISO string do Step2
+  const dataFormatada = date
+    ? `${new Date(date).getDate()} de ${monthNames[new Date(date).getMonth()]}`
+    : "—";
+
+  const irPara = (path: string) => {
+    reset(); // só limpa o contexto ao SAIR dessa tela, não antes
+    router.replace(path);
+  };
 
   return (
     <SafeAreaView className="flex-1 bg-[#110F0E]" edges={["top", "bottom"]}>
@@ -73,18 +87,18 @@ export default function Success() {
             Agendado!
           </Text>
           <Text className="text-[#988C81] text-center mt-2 leading-5">
-            João, seu horário foi confirmado com sucesso.{"\n"}Você receberá uma notificação de lembrete.
+            {usuario?.nome ? usuario.nome.split(" ")[0] : "Você"}, seu horário foi confirmado com sucesso.{"\n"}Você receberá uma notificação de lembrete.
           </Text>
         </View>
 
         <View className="bg-[#1B1B1B] rounded-2xl p-5 border border-[#3A3A3A] mt-8">
           <View className="flex-row items-center">
             <View className="w-12 h-12 rounded-full bg-[#CC8F3320] items-center justify-center">
-              <Text className="text-[#CC8F33] font-bold">{barber?.initials ?? "CS"}</Text>
+              <Text className="text-[#CC8F33] font-bold">{barber?.nome.substring(0, 1) ?? "?"}</Text>
             </View>
             <View className="ml-3 flex-1">
-              <Text className="text-white font-semibold">{barber?.name ?? "Carlos Silva"}</Text>
-              <Text className="text-[#988C81] text-xs">{barber?.role ?? "Master Barber"}</Text>
+              <Text className="text-white font-semibold">{barber?.nome ?? "—"}</Text>
+              <Text className="text-[#988C81] text-xs">{barber?.funcao ?? "—"}</Text>
             </View>
             <View className="w-7 h-7 rounded-full bg-[#22C55E20] items-center justify-center">
               <Ionicons name="checkmark" size={16} color="#22C55E" />
@@ -93,26 +107,28 @@ export default function Success() {
 
           <View className="h-px bg-[#3A3A3A] my-4" />
 
-          <Detail icon="cut-outline" label="Serviço" value={service?.name ?? "Corte + Barba"} />
-          <Detail icon="calendar-outline" label="Data" value={date ?? "7 de Abril, 2026"} />
-          <Detail icon="time-outline" label="Horário" value={time ?? "10:30"} />
+          <Detail icon="cut-outline" label="Serviço" value={service?.nome ?? "—"} />
+          <Detail icon="calendar-outline" label="Data" value={dataFormatada} />
+          <Detail icon="time-outline" label="Horário" value={time ?? "—"} />
 
           <View className="h-px bg-[#3A3A3A] my-4" />
           <View className="flex-row justify-between">
             <Text className="text-white font-bold">Total</Text>
-            <Text className="text-[#CC8F33] text-xl font-bold">R$ {service?.price ?? 55}</Text>
+            <Text className="text-[#CC8F33] text-xl font-bold">
+              R$ {service ? service.preco.toFixed(2).replace(".", ",") : "0,00"}
+            </Text>
           </View>
         </View>
 
         <View className="mt-8 gap-3">
           <PrimaryButton
             label="Ver agendamentos"
-            onPress={() => { reset(); router.replace("/agendamentos"); }}
+            onPress={() => irPara("/agendamentos")}
           />
           <PrimaryButton
             label="Voltar ao início"
             variant="outline"
-            onPress={() => { reset(); router.replace("/home"); }}
+            onPress={() => irPara("/home")}
           />
         </View>
       </View>

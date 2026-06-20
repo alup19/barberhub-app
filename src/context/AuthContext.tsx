@@ -28,10 +28,35 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [usuario, setUsuario] = useState<Usuario | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Busca a única barbearia cadastrada no sistema (modelo de app single-tenant)
+  async function buscarBarbeariaUnica(): Promise<string | null> {
+    try {
+      const res = await fetch(`${apiUrl}/barbearias`);
+      const data = await res.json();
+      if (!res.ok || !Array.isArray(data) || data.length === 0) return null;
+      return String(data[0].id);
+    } catch {
+      return null;
+    }
+  }
+
   useEffect(() => {
     async function carregar() {
       const salvo = await AsyncStorage.getItem("@usuario");
-      if (salvo) setUsuario(JSON.parse(salvo));
+      if (salvo) {
+        let usuarioCarregado = JSON.parse(salvo);
+
+        // Corrige usuários antigos salvos sem barbeariaId
+        if (!usuarioCarregado.barbeariaId) {
+          const barbeariaId = await buscarBarbeariaUnica();
+          if (barbeariaId) {
+            usuarioCarregado = { ...usuarioCarregado, barbeariaId };
+            await AsyncStorage.setItem("@usuario", JSON.stringify(usuarioCarregado));
+          }
+        }
+
+        setUsuario(usuarioCarregado);
+      }
       setLoading(false);
     }
     carregar();
@@ -48,8 +73,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     if (!res.ok) throw new Error(data.erro || "Erro ao fazer login");
 
-    await AsyncStorage.setItem("@usuario", JSON.stringify(data));
-    setUsuario(data);
+    // Se o usuário não vem com barbeariaId (caso de cliente comum),
+    // busca a barbearia única do app e injeta no objeto local
+    let usuarioFinal = data;
+    if (!data.barbeariaId) {
+      const barbeariaId = await buscarBarbeariaUnica();
+      if (barbeariaId) {
+        usuarioFinal = { ...data, barbeariaId };
+      }
+    }
+
+    await AsyncStorage.setItem("@usuario", JSON.stringify(usuarioFinal));
+    setUsuario(usuarioFinal);
   }
 
   async function logout() {

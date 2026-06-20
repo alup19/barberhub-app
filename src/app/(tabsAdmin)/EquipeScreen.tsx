@@ -5,6 +5,7 @@ import { Modal, Pressable, ScrollView, Text, TouchableOpacity, View } from "reac
 import Toast from "react-native-toast-message";
 import ScreenHeader from "../../components/ScreenHeader";
 import { useAuth } from "../../context/AuthContext";
+import HorariosBarbeiroScreen from "./HorariosBarbeiroScreen";
 
 const apiUrl = process.env.EXPO_PUBLIC_API_URL;
 
@@ -23,12 +24,13 @@ type Barbeiro = {
 type ConfirmState = { tipo: "folga" | "excluir"; barbeiro: Barbeiro } | null;
 
 export default function EquipeScreen({ onNew }: { onNew: () => void }) {
-  const { usuario } = useAuth();
+  const { usuario, fetchComAuth } = useAuth();
   const [barbeiros, setBarbeiros] = useState<Barbeiro[]>([]);
   const [loading, setLoading] = useState(false);
   const [expandidos, setExpandidos] = useState<Record<number, boolean>>({});
   const [menuAberto, setMenuAberto] = useState<Barbeiro | null>(null);
   const [confirm, setConfirm] = useState<ConfirmState>(null);
+  const [telaHorarios, setTelaHorarios] = useState<Barbeiro | null>(null);
 
   useFocusEffect(
     useCallback(() => {
@@ -43,9 +45,7 @@ export default function EquipeScreen({ onNew }: { onNew: () => void }) {
   const carregarBarbeiros = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${apiUrl}/barbeiros/barbearia/${usuario?.barbeariaId}`, {
-        headers: { Authorization: `Bearer ${usuario?.token}` },
-      });
+      const response = await fetchComAuth(`${apiUrl}/barbeiros/barbearia/${usuario?.barbeariaId}`);
       const data = await response.json();
       if (!response.ok) throw new Error(data.erro || "Erro ao buscar barbeiros");
       setBarbeiros(data);
@@ -62,12 +62,8 @@ export default function EquipeScreen({ onNew }: { onNew: () => void }) {
     setConfirm(null);
     setMenuAberto(null);
     try {
-      const response = await fetch(`${apiUrl}/barbeiros/${barbeiro.id}`, {
+      const response = await fetchComAuth(`${apiUrl}/barbeiros/${barbeiro.id}`, {
         method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${usuario?.token}`,
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify({ ativo: !barbeiro.ativo }),
       });
       const data = await response.json();
@@ -85,9 +81,8 @@ export default function EquipeScreen({ onNew }: { onNew: () => void }) {
     setConfirm(null);
     setMenuAberto(null);
     try {
-      const response = await fetch(`${apiUrl}/barbeiros/${barbeiro.id}`, {
+      const response = await fetchComAuth(`${apiUrl}/barbeiros/${barbeiro.id}`, {
         method: "DELETE",
-        headers: { Authorization: `Bearer ${usuario?.token}` },
       });
       if (!response.ok) {
         const data = await response.json();
@@ -99,6 +94,15 @@ export default function EquipeScreen({ onNew }: { onNew: () => void }) {
       Toast.show({ type: "error", text1: "Erro ao excluir", text2: error.message || "Tente novamente" });
     }
   };
+
+  if (telaHorarios) {
+    return (
+      <HorariosBarbeiroScreen
+        barbeiro={telaHorarios}
+        onBack={() => setTelaHorarios(null)}
+      />
+    );
+  }
 
   return (
     <>
@@ -229,6 +233,22 @@ export default function EquipeScreen({ onNew }: { onNew: () => void }) {
                   </Text>
                 </View>
               </View>
+
+              <TouchableOpacity
+                onPress={() => {
+                  if (menuAberto) setTelaHorarios(menuAberto);
+                  setMenuAberto(null);
+                }}
+                className="flex-row items-center gap-3 py-4 border-b border-[#2A2A2A]"
+              >
+                <View className="w-9 h-9 rounded-lg items-center justify-center" style={{ backgroundColor: "#CC8F3320" }}>
+                  <Ionicons name="time-outline" size={18} color="#CC8F33" />
+                </View>
+                <View className="flex-1">
+                  <Text className="text-white text-sm font-medium">Definir horários</Text>
+                  <Text className="text-[#988C81] text-xs mt-0.5">Configurar expediente semanal</Text>
+                </View>
+              </TouchableOpacity>
 
               <TouchableOpacity
                 onPress={() => menuAberto && setConfirm({ tipo: "folga", barbeiro: menuAberto })}
